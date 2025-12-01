@@ -38,7 +38,7 @@ from telegram.error import BadRequest
 
 # --- CloudTips polling config (replaces webhook) ---
 import requests
-CLOUDTIPS_POLL_URL = os.getenv('CLOUDTIPS_POLL_URL', '')  # e.g. https://your-proxy.example.com/payments
+CLOUDTIPS_POLL_URL = os.getenv('https://server-1-h1gw.onrender.com/payments', '')  # e.g. https://your-proxy.example.com/payments
 CLOUDTIPS_API_KEY = os.getenv('CLOUDTIPS_API_KEY', '')    # optional
 POLL_INTERVAL = int(os.getenv('POLL_INTERVAL', '30'))
 
