@@ -112,7 +112,7 @@ async def enter_pubg_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
 
 
 # --- Configuration ---
-TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN', '8335008959:AAHgeYQ42a48SQT5CcIP5xGAY5ARaIuZesI')
+TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN', '8593344199:AAHQ2vA7XADGxkjV_xtwMSbOuRDA6ukR4Ik')
 OWNER_ID = int(os.getenv('OWNER_ID', '8473513085'))
 ADMIN_CHAT_ID = int(os.getenv('ADMIN_CHAT_ID', '-1003448809517'))
 NOTIFY_CHAT_IDS = [int(x) for x in os.getenv('NOTIFY_CHAT_IDS', '-1003448809517').split(',') if x.strip()]
