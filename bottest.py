@@ -998,7 +998,7 @@ except Exception as e:
     logger.exception("CloudTips error: %s", e)
     pass
 
-        pass
+    pass
 
 
 # --- Photo routing (product photos or payment screenshots) ---
