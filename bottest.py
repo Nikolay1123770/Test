@@ -1785,15 +1785,8 @@ def build_app():
     
     # -------------------- RUN BOTH BOT + WEBHOOK SERVER --------------------
 if __name__ == "__main__":
-    import threading
-    
-    # запускаем Telegram бота
-    def run_bot():
-        app = build_app()
-        app.run_polling()
+    app = build_app()
+    print("Bot started!")
+    app.run_polling(allowed_updates=Update.ALL_TYPES)
 
-    threading.Thread(target=run_bot).start()
-
-    # запускаем FastAPI для webhook CloudTips
-    uvicorn.run(api, host="0.0.0.0", port=8000)
    
