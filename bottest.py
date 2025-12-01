@@ -40,7 +40,7 @@ from telegram.ext import (
 
 # -------------------- CONFIG --------------------
 
-TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN", "8593344199:AAHQ2vA7XADGxkjV_xtwMSbOuRDA6ukR4Ik)
+TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN", "8593344199:AAHQ2vA7XADGxkjV_xtwMSbOuRDA6ukR4Ik")
 
 OWNER_ID = int(os.getenv("8473513085", "0"))
 ADMIN_CHAT_ID = int(os.getenv("-1003448809517", "0"))
