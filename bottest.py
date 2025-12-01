@@ -42,11 +42,11 @@ from telegram.ext import (
 
 TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN", "8593344199:AAHQ2vA7XADGxkjV_xtwMSbOuRDA6ukR4Ik)
 
-OWNER_ID = int(os.getenv("OWNER_ID", "0"))
-ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID", "0"))
+OWNER_ID = int(os.getenv("8473513085", "0"))
+ADMIN_CHAT_ID = int(os.getenv("-1003448809517", "0"))
 
 NOTIFY_CHAT_IDS = [
-    int(x) for x in os.getenv("NOTIFY_CHAT_IDS", "").split(",") if x.strip()
+    int(x) for x in os.getenv("-1003448809517", "").split(",") if x.strip()
 ]
 
 DB_PATH = os.getenv("DB_PATH", "metro_shop.db")
