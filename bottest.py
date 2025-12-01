@@ -922,83 +922,23 @@ async def my_orders(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 # --- Buy callback (create order) ---
-async def buy_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def buy_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
-    if query is None:
-        return
-    try:
-        await query.answer()
-    except BadRequest:
-        pass
-
-    data = query.data or ''
-    if not data.startswith('buy:'):
-        return
-
-    _, pid_str = data.split(':', 1)
-    try:
-        pid = int(pid_str)
-    except ValueError:
-        return
-
-    p = db_execute('SELECT id, name, price FROM products WHERE id=?', (pid,), fetch=True)
-    if not p:
-        try:
-            await query.edit_message_text('Товар не найден.')
-        except Exception:
-            pass
-        return
-
-    prod_id, name, price = p[0]
-    user = query.from_user
-
-    db_execute(
-        'INSERT OR IGNORE INTO users (tg_id, username, registered_at) VALUES (?, ?, ?)',
-        (user.id, user.username or '', now_iso())
-    )
-    user_row = db_execute(
-        'SELECT id, pubg_id FROM users WHERE tg_id=?',
-        (user.id,), fetch=True
-    )
-    user_db_id = user_row[0][0]
-    pubg_id = user_row[0][1]
-
-    db_execute(
-        'INSERT INTO orders (user_id, product_id, price, status, created_at, pubg_id) VALUES (?, ?, ?, ?, ?, ?)',
-        (user_db_id, prod_id, price, 'awaiting_screenshot', now_iso(), pubg_id)
-    )
+    await query.answer()
 
     order_id = db_execute(
-    'SELECT id FROM orders WHERE user_id=? ORDER BY id DESC LIMIT 1',
-    (user_db_id,), fetch=True
-)[0][0]
+        'SELECT id FROM orders WHERE user_id=? ORDER BY id DESC LIMIT 1',
+        (user_db_id,), fetch=True
+    )[0][0]
 
-# NEW — automatic CloudTips payment check
-asyncio.create_task(poll_cloudtips(order_id, query.from_user.id, context.bot))
+    asyncio.create_task(poll_cloudtips(order_id, query.from_user.id, context.bot))
 
-try:
-    cloudtips_link = (
-        f"https://pay.cloudtips.ru/p/2842e969?"
-        f"amount={price}&payload={order_id}"
-    )
-
-    await query.message.reply_text(
-        f'Вы выбрали: {name} — {price}₽\n\n'
-        '💳 *Оплата через CloudTips*\n'
-        'Нажмите кнопку ниже, чтобы перейти к оплате.\n\n'
-        'После оплаты отправьте *скриншот платежа*.\n'
-        'Если вы не указали PUBG ID — добавьте его в сообщении.',
-        parse_mode='Markdown',
-        reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("💳 Оплатить через CloudTips", url=cloudtips_link)]
-        ])
-    )
-
-except Exception as e:
-    logger.exception("CloudTips error: %s", e)
-    pass
-
-    pass
+    try:
+        cloudtips_link = ...
+        await query.message.reply_text(...)
+    except Exception as e:
+        logger.exception("CloudTips error: %s", e)
+        pass
 
 
 # --- Photo routing (product photos or payment screenshots) ---
