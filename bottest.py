@@ -558,7 +558,6 @@ def build_app():
     app = ApplicationBuilder().token(TG_BOT_TOKEN).build()
 
     # routing
-    app.add_handler(MessageHandler(filters.Chat(ADMIN_CHAT_ID) & filters.ALL, ignore_admin_group), group=0)
     app.add_handler(CommandHandler('start', start), group=1)
     app.add_handler(CommandHandler('worker', worker_stats_handler), group=1)
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_router), group=1)
