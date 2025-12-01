@@ -1,0 +1,15 @@
+[
+  {
+    "id": "item_1",
+    "name": "8100 UC",
+    "price": "7750",
+    "currency": "RUB",
+    "old_price": null,
+    "desc": "Пополнение UC — быстро и безопасно.",
+    "category": "UC",
+    "photo_file_id": null,
+    "stock": 9999,
+    "delivery_text": "Доставка в течение 10-30 минут.",
+    "extra": {}
+  }
+]
