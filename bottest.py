@@ -969,33 +969,35 @@ async def buy_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     )
 
     order_id = db_execute(
-        'SELECT id FROM orders WHERE user_id=? ORDER BY id DESC LIMIT 1',
-        (user_db_id,), fetch=True
-    )[0][0]
-    
+    'SELECT id FROM orders WHERE user_id=? ORDER BY id DESC LIMIT 1',
+    (user_db_id,), fetch=True
+)[0][0]
+
 # NEW — automatic CloudTips payment check
 asyncio.create_task(poll_cloudtips(order_id, query.from_user.id, context.bot))
 
 try:
-        cloudtips_link = (
-            f"https://pay.cloudtips.ru/p/2842e969?"
-            f"amount={price}&payload={order_id}"
-        )
+    cloudtips_link = (
+        f"https://pay.cloudtips.ru/p/2842e969?"
+        f"amount={price}&payload={order_id}"
+    )
 
-        await query.message.reply_text(
-            f'Вы выбрали: {name} — {price}₽\n\n'
-            '💳 *Оплата через CloudTips*\n'
-            'Нажмите кнопку ниже, чтобы перейти к оплате.\n\n'
-            'После оплаты отправьте *скриншот платежа*.\n'
-            'Если вы не указали PUBG ID — добавьте его в сообщении.',
-            parse_mode='Markdown',
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("💳 Оплатить через CloudTips", url=cloudtips_link)]
-            ])
-        )
+    await query.message.reply_text(
+        f'Вы выбрали: {name} — {price}₽\n\n'
+        '💳 *Оплата через CloudTips*\n'
+        'Нажмите кнопку ниже, чтобы перейти к оплате.\n\n'
+        'После оплаты отправьте *скриншот платежа*.\n'
+        'Если вы не указали PUBG ID — добавьте его в сообщении.',
+        parse_mode='Markdown',
+        reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("💳 Оплатить через CloudTips", url=cloudtips_link)]
+        ])
+    )
 
-    except Exception as e:
-        logger.exception("CloudTips error: %s", e)
+except Exception as e:
+    logger.exception("CloudTips error: %s", e)
+    pass
+
         pass
 
 
