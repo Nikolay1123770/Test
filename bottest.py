@@ -976,7 +976,7 @@ async def buy_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 # NEW — automatic CloudTips payment check
 asyncio.create_task(poll_cloudtips(order_id, query.from_user.id, context.bot))
 
-    try:
+try:
         cloudtips_link = (
             f"https://pay.cloudtips.ru/p/2842e969?"
             f"amount={price}&payload={order_id}"
